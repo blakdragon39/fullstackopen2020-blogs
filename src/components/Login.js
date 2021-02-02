@@ -1,18 +1,43 @@
 import { useState } from 'react'
+import loginService from '../services/login'
 
-const Login = () => {
+const Login = ({ setUser }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = () => {
-        console.log('logging in with', username, password)
+    const handleLogin = async (event) => {
+        event.preventDefault()
+
+        try {
+            const user = await loginService.login(username, password)
+            setUser(user)
+            setUsername('')
+            setPassword('')
+        } catch (exception) {
+            console.error(exception)
+            alert('Login failed')
+        }
     }
 
     return(
         <div>
             <h2>Login to Application</h2>
             <form onSubmit={handleLogin}>
-
+                <div>
+                    username <input
+                        type="text"
+                        value={username}
+                        name={"Username"}
+                        onChange={({ target }) => setUsername(target.value)}/>
+                </div>
+                <div>
+                    password <input
+                        type="password"
+                        value={password}
+                        name="Password"
+                        onChange={({ target}) => setPassword(target.value)}/>
+                </div>
+                <button type="submit">Login</button>
             </form>
         </div>
     )
