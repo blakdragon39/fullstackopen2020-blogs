@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import loginService from '../services/login'
+import localStorage from '../services/localStorage'
 
 const Login = ({ setUser }) => {
     const [username, setUsername] = useState('')
@@ -10,9 +11,8 @@ const Login = ({ setUser }) => {
 
         try {
             const user = await loginService.login(username, password)
+            localStorage.setUser(user)
             setUser(user)
-            setUsername('')
-            setPassword('')
         } catch (exception) {
             console.error(exception)
             alert('Login failed')
