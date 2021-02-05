@@ -2,9 +2,25 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:3001/api/blogs'
 
-const getAll = () => {
-    return axios.get(baseUrl)
-        .then(response => response.data)
+let token
+const setToken = (newToken) => token = newToken
+
+const header = () => {
+    return {
+        Authorization: token
+    }
 }
 
-export default { getAll }
+const getAll = async () => {
+    const response = await axios.get(baseUrl)
+    return response.data
+}
+
+const addBlog = async (newBlog) => {
+    const config = { headers: header() }
+    const response = await axios.post(baseUrl, newBlog, config)
+    return response.data
+}
+
+const blogService = { setToken, getAll, addBlog }
+export default blogService

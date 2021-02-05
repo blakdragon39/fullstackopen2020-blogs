@@ -11,7 +11,8 @@ const setUser = user => {
     }
 }
 
-export default {
+const localStorage = {
     getUser,
     setUser
 }
+export default localStorage
