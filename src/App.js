@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
 import Blogs from './components/Blog'
+import AddBlog from "./components/AddBlog";
 import Login from './components/Login'
 import User from './components/User'
 
@@ -15,6 +16,7 @@ const App = () => {
         const user = localStorage.getUser()
         if (user) {
             setUser(user)
+            blogService.setToken(user.token)
         }
     }, [])
 
@@ -33,6 +35,7 @@ const App = () => {
         return (
             <div>
                 <User user={user} handleLogout={handleLogout}/>
+                <AddBlog blogs={blogs} setBlogs={setBlogs}/>
                 <Blogs blogs={blogs}/>
             </div>
         )
