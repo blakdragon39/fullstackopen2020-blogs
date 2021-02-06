@@ -2,7 +2,7 @@ import { useState } from 'react'
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, addNotification }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -13,9 +13,13 @@ const Login = ({ setUser }) => {
             const user = await loginService.login(username, password)
             localStorage.setUser(user)
             setUser(user)
+            addNotification({ message: 'Successful login' })
         } catch (exception) {
             console.error(exception)
-            alert('Login failed')
+            addNotification({
+                message: exception.response.data.error,
+                isError: true
+            })
         }
     }
 
