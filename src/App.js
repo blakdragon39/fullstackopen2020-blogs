@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import Blogs from './components/Blog'
 import AddBlog from "./components/AddBlog";
 import Login from './components/Login'
 import User from './components/User'
 import Notifications from './components/Notifications'
+import Toggleable from './components/Toggleable'
 
 import blogService from './services/blogs'
 import localStorage from './services/localStorage'
@@ -13,6 +14,7 @@ const App = () => {
     const [blogs, setBlogs] = useState([])
     const [user, setUser] = useState(null)
     const [notifications, setNotifications] = useState([])
+    const toggleRef = useRef()
 
     useEffect(() => {
         const user = localStorage.getUser()
@@ -42,7 +44,13 @@ const App = () => {
         (
             <div>
                 <User user={user} handleLogout={handleLogout}/>
-                <AddBlog blogs={blogs} setBlogs={setBlogs} addNotification={addNotification}/>
+                <Toggleable toggleText='Add Blog' ref={toggleRef}>
+                    <AddBlog
+                        blogs={blogs}
+                        setBlogs={setBlogs}
+                        addNotification={addNotification}
+                        toggleable={toggleRef}/>
+                </Toggleable>
                 <Blogs blogs={blogs}/>
             </div>
         )
