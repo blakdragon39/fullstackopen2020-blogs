@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react'
 
-import Blogs from './components/Blog'
+import Blogs from './components/Blogs'
 import AddBlog from "./components/AddBlog";
 import Login from './components/Login'
 import User from './components/User'
@@ -44,7 +44,7 @@ const App = () => {
         (
             <div>
                 <User user={user} handleLogout={handleLogout}/>
-                <Toggleable toggleText='Add Blog' ref={toggleRef}>
+                <Toggleable toggleText='Add Blogs' ref={toggleRef}>
                     <AddBlog
                         blogs={blogs}
                         setBlogs={setBlogs}
