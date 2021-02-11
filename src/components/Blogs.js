@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 
-const Blogs = ({ blogs, updateBlog }) => (
+const Blogs = ({ blogs, blogService, updateBlog }) => (
     <div>
         <h2>Blogs</h2>
         { blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+            <Blog
+                key={blog.id}
+                blog={blog}
+                blogService={blogService}
+                updateBlog={updateBlog}/>
         )}
     </div>
 )
 
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, blogService, updateBlog }) => {
     const [visible, setVisible] = useState(false)
 
     const blogStyle = {

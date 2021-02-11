@@ -55,12 +55,14 @@ const App = () => {
                 <User user={user} handleLogout={handleLogout}/>
                 <Toggleable toggleText='Add Blogs' ref={toggleRef}>
                     <AddBlog
+                        blogService={blogService}
                         addBlog={addBlog}
                         setBlogs={setBlogs}
                         addNotification={addNotification}
                         toggleable={toggleRef}/>
                 </Toggleable>
                 <Blogs
+                    blogService={blogService}
                     blogs={blogs}
                     updateBlog={updateBlog}/>
             </div>
