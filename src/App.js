@@ -34,6 +34,15 @@ const App = () => {
         setTimeout(removeNotification, 3000)
     }
 
+    const addBlog = (newBlog) => setBlogs(blogs.concat(newBlog))
+
+    const updateBlog = (newBlog) => {
+        const index = blogs.findIndex(blog => blog.id === newBlog.id)
+        const newBlogs = [...blogs]
+        newBlogs[index] = newBlog
+        setBlogs(newBlogs)
+    }
+
     const handleLogout = () => {
         localStorage.setUser(null)
         setUser(null)
@@ -46,12 +55,14 @@ const App = () => {
                 <User user={user} handleLogout={handleLogout}/>
                 <Toggleable toggleText='Add Blogs' ref={toggleRef}>
                     <AddBlog
-                        blogs={blogs}
+                        addBlog={addBlog}
                         setBlogs={setBlogs}
                         addNotification={addNotification}
                         toggleable={toggleRef}/>
                 </Toggleable>
-                <Blogs blogs={blogs}/>
+                <Blogs
+                    blogs={blogs}
+                    updateBlog={updateBlog}/>
             </div>
         )
     return (

@@ -22,5 +22,12 @@ const addBlog = async (newBlog) => {
     return response.data
 }
 
-const blogService = { setToken, getAll, addBlog }
+const addLike = async (blog) => {
+    const config = { headers: header() }
+    const body = { likes: blog.likes + 1 }
+    const response = await axios.put(`${baseUrl}/${blog.id}`, body, config)
+    return response.data
+}
+
+const blogService = { setToken, getAll, addBlog, addLike }
 export default blogService

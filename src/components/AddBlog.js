@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const AddBlog = ({ blogs, setBlogs, addNotification, toggleable }) => {
+const AddBlog = ({ addBlog, addNotification, toggleable }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -20,7 +20,7 @@ const AddBlog = ({ blogs, setBlogs, addNotification, toggleable }) => {
             setAuthor('')
             setUrl('')
             toggleable.current.toggleState()
-            setBlogs(blogs.concat(newBlog))
+            addBlog(newBlog)
             addNotification({ message: `Added blog ${newBlog.title}`})
         } catch (exception) {
             addNotification({
