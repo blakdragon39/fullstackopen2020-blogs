@@ -10,6 +10,11 @@ import Toggleable from './components/Toggleable'
 import blogService from './services/blogs'
 import localStorage from './services/localStorage'
 
+const sortBlogs = (blogs) => {
+    return [].concat(blogs)
+        .sort((blog1, blog2) => blog2.likes - blog1.likes)
+}
+
 const App = () => {
     const [blogs, setBlogs] = useState([])
     const [user, setUser] = useState(null)
@@ -25,7 +30,10 @@ const App = () => {
     }, [])
 
     useEffect(() => {
-        blogService.getAll().then(blogs => setBlogs(blogs))
+        blogService.getAll().then(newBlogs => {
+            newBlogs = sortBlogs(newBlogs)
+            setBlogs(newBlogs)
+        })
     }, [])
 
     const addNotification = (notification) => {
@@ -34,12 +42,17 @@ const App = () => {
         setTimeout(removeNotification, 3000)
     }
 
-    const addBlog = (newBlog) => setBlogs(blogs.concat(newBlog))
+    const addBlog = (newBlog) => {
+        let newBlogs = blogs.concat(newBlog)
+        newBlogs = sortBlogs(newBlogs)
+        setBlogs(newBlogs)
+    }
 
     const updateBlog = (newBlog) => {
         const index = blogs.findIndex(blog => blog.id === newBlog.id)
-        const newBlogs = [...blogs]
+        let newBlogs = [...blogs]
         newBlogs[index] = newBlog
+        newBlogs = sortBlogs(newBlogs)
         setBlogs(newBlogs)
     }
 
