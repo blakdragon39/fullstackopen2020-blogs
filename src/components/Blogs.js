@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropType from 'prop-types'
 import localStorage from '../services/localStorage'
 
 const Blogs = ({ blogs, blogService, updateBlog, deleteBlog }) => (
@@ -52,6 +53,20 @@ const Blog = ({ blog, blogService, updateBlog, deleteBlog }) => {
             </div>
         </div>
     )
+}
+
+Blogs.propTypes = {
+    blogs: PropType.array.isRequired,
+    blogService: PropType.object.isRequired,
+    updateBlog: PropType.func.isRequired,
+    deleteBlog: PropType.func.isRequired
+}
+
+Blog.propTypes = {
+    blog: PropType.object.isRequired,
+    blogService: PropType.object.isRequired,
+    updateBlog: PropType.func.isRequired,
+    deleteBlog: PropType.func.isRequired
 }
 
 export default Blogs

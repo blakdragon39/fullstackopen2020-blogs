@@ -1,3 +1,5 @@
+import PropType from 'prop-types'
+
 const Notifications = ({ notifications }) => (
     <div>
         { notifications.map(notification =>
@@ -18,6 +20,14 @@ const Notification = ({ notification }) => {
     }
 
     return(<div className='notification' style={style}>{notification.message}</div>)
+}
+
+Notifications.propTypes = {
+    notifications: PropType.array.isRequired
+}
+
+Notification.propTypes = {
+    notification: PropType.object.isRequired
 }
 
 export default Notifications

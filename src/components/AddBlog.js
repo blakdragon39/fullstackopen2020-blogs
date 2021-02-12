@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
+
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -58,6 +60,13 @@ const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
             </form>
         </div>
     )
+}
+
+AddBlog.propTypes = {
+    blogService: PropTypes.object.isRequired,
+    addBlog: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    toggleable: PropTypes.object.isRequired
 }
 
 export default AddBlog

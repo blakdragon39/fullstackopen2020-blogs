@@ -1,4 +1,5 @@
 import React, { useState, useImperativeHandle } from 'react'
+import PropType from 'prop-types'
 
 const Toggleable = React.forwardRef((props, ref) => {
     const [contentVisible, setContentVisible] = useState(false)
@@ -25,5 +26,9 @@ const Toggleable = React.forwardRef((props, ref) => {
         </div>
     )
 })
+
+Toggleable.propTypes = {
+    toggleText: PropType.string.isRequired
+}
 
 export default Toggleable

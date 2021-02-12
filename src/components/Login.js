@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropType from 'prop-types'
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'
 
@@ -45,6 +46,11 @@ const Login = ({ setUser, addNotification }) => {
             </form>
         </div>
     )
+}
+
+Login.propTypes = {
+    setUser: PropType.func.isRequired,
+    addNotification: PropType.func.isRequired
 }
 
 export default Login
