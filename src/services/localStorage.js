@@ -1,5 +1,5 @@
 const getUser = () => {
-    const user =  window.localStorage.getItem('user')
+    const user = window.localStorage.getItem('user')
     return user ? JSON.parse(user) : null
 }
 

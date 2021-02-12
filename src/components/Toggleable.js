@@ -16,9 +16,7 @@ const Toggleable = React.forwardRef((props, ref) => {
 
     return (
         <div>
-            <div style={controlStyle}>
-                <button onClick={toggleState}>{props.toggleText}</button>
-            </div>
+            <div style={controlStyle}><button onClick={toggleState}>{props.toggleText}</button></div>
             <div style={contentStyle}>
                 {props.children}
                 <button onClick={toggleState}>Cancel</button>
@@ -30,5 +28,7 @@ const Toggleable = React.forwardRef((props, ref) => {
 Toggleable.propTypes = {
     toggleText: PropType.string.isRequired
 }
+
+Toggleable.displayName = 'Toggleable'
 
 export default Toggleable

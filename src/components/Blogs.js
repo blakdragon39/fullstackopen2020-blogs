@@ -5,7 +5,7 @@ import localStorage from '../services/localStorage'
 const Blogs = ({ blogs, blogService, updateBlog, deleteBlog }) => (
     <div>
         <h2>Blogs</h2>
-        { blogs.map(blog =>
+        {blogs.map(blog =>
             <Blog
                 key={blog.id}
                 blog={blog}
@@ -44,10 +44,10 @@ const Blog = ({ blog, blogService, updateBlog, deleteBlog }) => {
 
     return (
         <div style={blogStyle}>
-            <div>{blog.title} <button onClick={toggleVisible}>{visible ? 'Hide' : 'View'}</button></div>
+            <div>{blog.title}<button onClick={toggleVisible}>{visible ? 'Hide' : 'View'}</button></div>
             <div style={blogBodyStyle}>
                 <div>{blog.url}</div>
-                <div>Likes: {blog.likes} <button onClick={addLike}>Like</button></div>
+                <div>Likes: {blog.likes}<button onClick={addLike}>Like</button></div>
                 <div>{blog.author}</div>
                 <div style={deleteButtonStyle}><button onClick={() => deleteBlog(blog)}>delete</button></div>
             </div>

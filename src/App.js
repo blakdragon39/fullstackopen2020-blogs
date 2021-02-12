@@ -1,7 +1,7 @@
-import {useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import Blogs from './components/Blogs'
-import AddBlog from "./components/AddBlog";
+import AddBlog from './components/AddBlog'
 import Login from './components/Login'
 import User from './components/User'
 import Notifications from './components/Notifications'
@@ -73,7 +73,7 @@ const App = () => {
         setUser(null)
     }
 
-    const body = user == null ?
+    const body = user === null ?
         (<Login setUser={setUser} addNotification={addNotification}/>) :
         (
             <div>
@@ -96,7 +96,7 @@ const App = () => {
     return (
         <div>
             <Notifications notifications={notifications}/>
-            { body }
+            {body}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
@@ -22,7 +22,7 @@ const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
             setUrl('')
             toggleable.current.toggleState()
             addBlog(newBlog)
-            addNotification({ message: `Added blog ${newBlog.title}`})
+            addNotification({ message: `Added blog ${newBlog.title}` })
         } catch (exception) {
             addNotification({
                 message: exception.response.data.error,

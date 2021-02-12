@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import PropType from 'prop-types'
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'
@@ -24,7 +24,7 @@ const Login = ({ setUser, addNotification }) => {
         }
     }
 
-    return(
+    return (
         <div>
             <h2>Login to Application</h2>
             <form onSubmit={handleLogin}>
@@ -40,7 +40,7 @@ const Login = ({ setUser, addNotification }) => {
                         type='password'
                         value={password}
                         name='password'
-                        onChange={({ target}) => setPassword(target.value)}/>
+                        onChange={({ target }) => setPassword(target.value)}/>
                 </div>
                 <button type='submit'>Login</button>
             </form>

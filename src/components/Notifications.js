@@ -1,8 +1,9 @@
+import React from 'react'
 import PropType from 'prop-types'
 
 const Notifications = ({ notifications }) => (
     <div>
-        { notifications.map(notification =>
+        {notifications.map(notification =>
             <Notification key={notification} notification={notification}/>
         )}
     </div>
@@ -19,7 +20,7 @@ const Notification = ({ notification }) => {
         color: notification.isError ? 'red' : 'green'
     }
 
-    return(<div className='notification' style={style}>{notification.message}</div>)
+    return (<div className='notification' style={style}>{notification.message}</div>)
 }
 
 Notifications.propTypes = {
