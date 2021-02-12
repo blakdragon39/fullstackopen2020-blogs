@@ -57,11 +57,15 @@ const App = () => {
     }
 
     const deleteBlog = async (deleteBlog) => {
-        await blogService.deleteBlog(deleteBlog)
-        const index = blogs.findIndex(blog => blog.id === deleteBlog.id)
-        const newBlogs = [...blogs]
-        newBlogs.splice(index, 1)
-        setBlogs(newBlogs)
+        const confirmDelete = window.confirm(`Really delete ${deleteBlog.title}?`)
+
+        if (confirmDelete) {
+            await blogService.deleteBlog(deleteBlog)
+            const index = blogs.findIndex(blog => blog.id === deleteBlog.id)
+            const newBlogs = [...blogs]
+            newBlogs.splice(index, 1)
+            setBlogs(newBlogs)
+        }
     }
 
     const handleLogout = () => {
