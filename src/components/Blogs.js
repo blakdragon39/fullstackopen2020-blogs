@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import localStorage from '../services/localStorage'
 
-const Blogs = ({ blogs, blogService, updateBlog }) => (
+const Blogs = ({ blogs, blogService, updateBlog, deleteBlog }) => (
     <div>
         <h2>Blogs</h2>
         { blogs.map(blog =>
@@ -8,12 +9,13 @@ const Blogs = ({ blogs, blogService, updateBlog }) => (
                 key={blog.id}
                 blog={blog}
                 blogService={blogService}
-                updateBlog={updateBlog}/>
+                updateBlog={updateBlog}
+                deleteBlog={deleteBlog}/>
         )}
     </div>
 )
 
-const Blog = ({ blog, blogService, updateBlog }) => {
+const Blog = ({ blog, blogService, updateBlog, deleteBlog }) => {
     const [visible, setVisible] = useState(false)
 
     const blogStyle = {
@@ -26,6 +28,10 @@ const Blog = ({ blog, blogService, updateBlog }) => {
 
     const blogBodyStyle = {
         display: visible ? '' : 'none'
+    }
+
+    const deleteButtonStyle = {
+        display: blog.user && blog.user.id === localStorage.getUser().id ? '' : 'none'
     }
 
     const toggleVisible = () => setVisible(!visible)
@@ -42,6 +48,7 @@ const Blog = ({ blog, blogService, updateBlog }) => {
                 <div>{blog.url}</div>
                 <div>Likes: {blog.likes} <button onClick={addLike}>Like</button></div>
                 <div>{blog.author}</div>
+                <div style={deleteButtonStyle}><button onClick={() => deleteBlog(blog)}>delete</button></div>
             </div>
         </div>
     )

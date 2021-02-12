@@ -56,6 +56,14 @@ const App = () => {
         setBlogs(newBlogs)
     }
 
+    const deleteBlog = async (deleteBlog) => {
+        await blogService.deleteBlog(deleteBlog)
+        const index = blogs.findIndex(blog => blog.id === deleteBlog.id)
+        const newBlogs = [...blogs]
+        newBlogs.splice(index, 1)
+        setBlogs(newBlogs)
+    }
+
     const handleLogout = () => {
         localStorage.setUser(null)
         setUser(null)
@@ -77,7 +85,8 @@ const App = () => {
                 <Blogs
                     blogService={blogService}
                     blogs={blogs}
-                    updateBlog={updateBlog}/>
+                    updateBlog={updateBlog}
+                    deleteBlog={deleteBlog}/>
             </div>
         )
     return (

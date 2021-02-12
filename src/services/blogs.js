@@ -11,23 +11,37 @@ const header = () => {
     }
 }
 
+const headerConfig = () => {
+    return {
+        headers: header()
+    }
+}
+
 const getAll = async () => {
     const response = await axios.get(baseUrl)
     return response.data
 }
 
 const addBlog = async (newBlog) => {
-    const config = { headers: header() }
-    const response = await axios.post(baseUrl, newBlog, config)
+    const response = await axios.post(baseUrl, newBlog, headerConfig())
     return response.data
+}
+
+const deleteBlog = async (blog) => {
+    await axios.delete(`${baseUrl}/${blog.id}`, headerConfig())
 }
 
 const addLike = async (blog) => {
-    const config = { headers: header() }
     const body = { likes: blog.likes + 1 }
-    const response = await axios.put(`${baseUrl}/${blog.id}`, body, config)
+    const response = await axios.put(`${baseUrl}/${blog.id}`, body, headerConfig())
     return response.data
 }
 
-const blogService = { setToken, getAll, addBlog, addLike }
+const blogService = {
+    setToken,
+    getAll,
+    addBlog,
+    deleteBlog,
+    addLike
+}
 export default blogService
