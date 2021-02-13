@@ -49,7 +49,7 @@ const Blog = ({ blog, blogService, updateBlog, deleteBlog }) => {
                 <div>{blog.url}</div>
                 <div>Likes: {blog.likes}<button onClick={addLike}>Like</button></div>
                 <div>{blog.author}</div>
-                <div style={deleteButtonStyle}><button onClick={() => deleteBlog(blog)}>delete</button></div>
+                <div style={deleteButtonStyle}><button onClick={() => deleteBlog(blog)}>Delete</button></div>
             </div>
         </div>
     )

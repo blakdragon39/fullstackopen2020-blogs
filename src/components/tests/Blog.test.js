@@ -19,9 +19,22 @@ describe('<Blog/>', () => {
     const blogs = [ blog ]
 
     let component
+    let updateBlogMock
+    let blogServiceMock
+    let deleteBlogMock
 
     beforeEach(() => {
-        component = render(<Blogs blogs={blogs}/>)
+        updateBlogMock = jest.fn()
+        deleteBlogMock = jest.fn()
+        blogServiceMock = {}
+
+        component = render(
+            <Blogs
+                blogs={blogs}
+                updateBlog={updateBlogMock}
+                blogService={blogServiceMock}
+                deleteBlog={deleteBlogMock}/>
+        )
     })
 
     test('renders title', () => {
@@ -38,5 +51,13 @@ describe('<Blog/>', () => {
         fireEvent.click(button)
         const hiddenDiv = component.container.querySelector('.blogBody')
         expect(hiddenDiv).not.toHaveStyle('display: none')
+    })
+
+    test('delete fires', () => {
+        const button = component.getByText('Delete')
+        fireEvent.click(button)
+        fireEvent.click(button)
+
+        expect(deleteBlogMock.mock.calls).toHaveLength(2)
     })
 })
