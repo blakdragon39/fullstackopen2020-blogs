@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Blogs from '../Blogs'
 
 /*
@@ -31,5 +31,12 @@ describe('<Blog/>', () => {
     test('other fields hidden', () => {
         const hiddenDiv = component.container.querySelector('.blogBody')
         expect(hiddenDiv).toHaveStyle('display: none')
+    })
+
+    test('fields shown when clicked', () => {
+        const button = component.getByText('View')
+        fireEvent.click(button)
+        const hiddenDiv = component.container.querySelector('.blogBody')
+        expect(hiddenDiv).not.toHaveStyle('display: none')
     })
 })
