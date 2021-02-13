@@ -43,9 +43,9 @@ const Blog = ({ blog, blogService, updateBlog, deleteBlog }) => {
     }
 
     return (
-        <div style={blogStyle}>
+        <div style={blogStyle} className='blog'>
             <div>{blog.title}<button onClick={toggleVisible}>{visible ? 'Hide' : 'View'}</button></div>
-            <div style={blogBodyStyle}>
+            <div style={blogBodyStyle} className='blogBody'>
                 <div>{blog.url}</div>
                 <div>Likes: {blog.likes}<button onClick={addLike}>Like</button></div>
                 <div>{blog.author}</div>
