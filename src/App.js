@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBlogs } from './reducers/blogReducer'
+import { getUser } from './reducers/userReducer'
 
 import Blogs from './components/Blogs'
 import AddBlog from './components/AddBlog'
@@ -10,34 +11,21 @@ import Notifications from './components/Notifications'
 import Toggleable from './components/Toggleable'
 
 import blogService from './services/blogs'
-import localStorage from './services/localStorage'
 
 const App = () => {
     const blogs = useSelector(store => store.blogs)
-    const [user, setUser] = useState(null)
+    const user = useSelector(store => store.user)
     const toggleRef = useRef()
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const user = localStorage.getUser()
-        if (user) {
-            setUser(user)
-            blogService.setToken(user.token)
-        }
-    }, [])
-
+    useEffect(() => dispatch(getUser()), [])
     useEffect(() => dispatch(getBlogs()), [])
 
-    const handleLogout = () => {
-        localStorage.setUser(null)
-        setUser(null)
-    }
-
     const body = user === null ?
-        (<Login setUser={setUser}/>) :
+        (<Login />) :
         (
             <div>
-                <User user={user} handleLogout={handleLogout}/>
+                <User />
                 <Toggleable toggleText='Add Blogs' ref={toggleRef}>
                     <AddBlog
                         toggleable={toggleRef}/>

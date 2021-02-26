@@ -1,27 +1,15 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addNotification } from '../reducers/notificationReducer'
-import PropType from 'prop-types'
-import loginService from '../services/login'
-import localStorage from '../services/localStorage'
+import { login } from '../reducers/userReducer'
 
-const Login = ({ setUser }) => {
+const Login = () => {
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const handleLogin = async (event) => {
         event.preventDefault()
-
-        try {
-            const user = await loginService.login(username, password)
-            localStorage.setUser(user)
-            setUser(user)
-            dispatch(addNotification('Successful login'))
-        } catch (exception) {
-            console.error(exception)
-            dispatch(addNotification(exception.response.data.error, true))
-        }
+        dispatch(login(username, password))
     }
 
     return (
@@ -46,10 +34,6 @@ const Login = ({ setUser }) => {
             </form>
         </div>
     )
-}
-
-Login.propTypes = {
-    setUser: PropType.func.isRequired,
 }
 
 export default Login
