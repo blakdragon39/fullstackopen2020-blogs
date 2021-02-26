@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addNotification } from '../notificationReducer'
+import { addNotification } from '../reducers/notificationReducer'
 import PropType from 'prop-types'
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'

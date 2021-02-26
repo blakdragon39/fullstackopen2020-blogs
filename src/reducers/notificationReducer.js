@@ -22,12 +22,12 @@ export const addNotification = (message, isError = false, timeoutSeconds = 5) =>
 
 const notificationReducer = (state = [], action) => {
     switch (action.type) {
-    case 'notification.add':
-        return state.concat(action.data)
-    case 'notification.remove':
-        return state.filter(notification => notification.id !== action.data.id)
-    default:
-        return state
+        case 'notification.add':
+            return state.concat(action.data)
+        case 'notification.remove':
+            return state.filter(notification => notification.id !== action.data.id)
+        default:
+            return state
     }
 }
 
