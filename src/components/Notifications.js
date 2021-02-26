@@ -16,11 +16,11 @@ const Notifications = () => {
 const Notification = ({ notification }) => {
     const style = {
         background: 'lightgrey',
-        fontsize: '20',
+        fontsize: 20,
         borderStyle: 'solid',
-        borderRadius: '5',
-        padding: '10',
-        marginBottom: '10',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
         color: notification.isError ? 'red' : 'green'
     }
 
