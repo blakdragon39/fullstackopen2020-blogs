@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addNotification } from '../notificationReducer'
+import { addNotification } from '../reducers/notificationReducer'
+import { addBlog } from '../reducers/blogReducer'
 import PropTypes from 'prop-types'
 
-const AddBlog = ({ blogService, addBlog, toggleable }) => {
+const AddBlog = ({ toggleable }) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
@@ -13,17 +14,17 @@ const AddBlog = ({ blogService, addBlog, toggleable }) => {
         event.preventDefault()
 
         try {
-            const newBlog = await blogService.addBlog({
+            const newBlog = {
                 title: title,
                 author: author,
                 url: url
-            })
+            }
+            dispatch(addBlog(newBlog))
 
             setTitle('')
             setAuthor('')
             setUrl('')
             toggleable.current.toggleState()
-            addBlog(newBlog)
 
             const message = `Added blog ${newBlog.title}`
             dispatch(addNotification(message))
@@ -64,8 +65,6 @@ const AddBlog = ({ blogService, addBlog, toggleable }) => {
 }
 
 AddBlog.propTypes = {
-    blogService: PropTypes.object.isRequired,
-    addBlog: PropTypes.func.isRequired,
     toggleable: PropTypes.object.isRequired
 }
 

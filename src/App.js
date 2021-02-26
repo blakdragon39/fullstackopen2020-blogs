@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBlogs } from './reducers/blogReducer'
 
 import Blogs from './components/Blogs'
 import AddBlog from './components/AddBlog'
@@ -10,15 +12,11 @@ import Toggleable from './components/Toggleable'
 import blogService from './services/blogs'
 import localStorage from './services/localStorage'
 
-const sortBlogs = (blogs) => {
-    return [].concat(blogs)
-        .sort((blog1, blog2) => blog2.likes - blog1.likes)
-}
-
 const App = () => {
-    const [blogs, setBlogs] = useState([])
+    const blogs = useSelector(store => store.blogs)
     const [user, setUser] = useState(null)
     const toggleRef = useRef()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const user = localStorage.getUser()
@@ -28,38 +26,7 @@ const App = () => {
         }
     }, [])
 
-    useEffect(() => {
-        blogService.getAll().then(newBlogs => {
-            newBlogs = sortBlogs(newBlogs)
-            setBlogs(newBlogs)
-        })
-    }, [])
-
-    const addBlog = (newBlog) => {
-        let newBlogs = blogs.concat(newBlog)
-        newBlogs = sortBlogs(newBlogs)
-        setBlogs(newBlogs)
-    }
-
-    const updateBlog = (newBlog) => {
-        const index = blogs.findIndex(blog => blog.id === newBlog.id)
-        let newBlogs = [...blogs]
-        newBlogs[index] = newBlog
-        newBlogs = sortBlogs(newBlogs)
-        setBlogs(newBlogs)
-    }
-
-    const deleteBlog = async (deleteBlog) => {
-        const confirmDelete = window.confirm(`Really delete ${deleteBlog.title}?`)
-
-        if (confirmDelete) {
-            await blogService.deleteBlog(deleteBlog)
-            const index = blogs.findIndex(blog => blog.id === deleteBlog.id)
-            const newBlogs = [...blogs]
-            newBlogs.splice(index, 1)
-            setBlogs(newBlogs)
-        }
-    }
+    useEffect(() => dispatch(getBlogs()), [])
 
     const handleLogout = () => {
         localStorage.setUser(null)
@@ -73,16 +40,11 @@ const App = () => {
                 <User user={user} handleLogout={handleLogout}/>
                 <Toggleable toggleText='Add Blogs' ref={toggleRef}>
                     <AddBlog
-                        blogService={blogService}
-                        addBlog={addBlog}
-                        setBlogs={setBlogs}
                         toggleable={toggleRef}/>
                 </Toggleable>
                 <Blogs
                     blogService={blogService}
-                    blogs={blogs}
-                    updateBlog={updateBlog}
-                    deleteBlog={deleteBlog}/>
+                    blogs={blogs}/>
             </div>
         )
     return (
