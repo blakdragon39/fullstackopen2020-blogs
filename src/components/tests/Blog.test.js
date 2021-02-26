@@ -3,11 +3,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
 import Blogs from '../Blogs'
 
-/*
-renders the blog's title,
-but does not render its author, url or number of likes by default
- */
-
 describe('<Blog/>', () => {
     const blog = {
         id: 'id',

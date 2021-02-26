@@ -18,7 +18,6 @@ const sortBlogs = (blogs) => {
 const App = () => {
     const [blogs, setBlogs] = useState([])
     const [user, setUser] = useState(null)
-    const [notifications, setNotifications] = useState([])
     const toggleRef = useRef()
 
     useEffect(() => {
@@ -35,12 +34,6 @@ const App = () => {
             setBlogs(newBlogs)
         })
     }, [])
-
-    const addNotification = (notification) => {
-        setNotifications(notifications.concat(notification))
-        const removeNotification = () => setNotifications(notifications.filter(n => n !== notification))
-        setTimeout(removeNotification, 3000)
-    }
 
     const addBlog = (newBlog) => {
         let newBlogs = blogs.concat(newBlog)
@@ -74,7 +67,7 @@ const App = () => {
     }
 
     const body = user === null ?
-        (<Login setUser={setUser} addNotification={addNotification}/>) :
+        (<Login setUser={setUser}/>) :
         (
             <div>
                 <User user={user} handleLogout={handleLogout}/>
@@ -83,7 +76,6 @@ const App = () => {
                         blogService={blogService}
                         addBlog={addBlog}
                         setBlogs={setBlogs}
-                        addNotification={addNotification}
                         toggleable={toggleRef}/>
                 </Toggleable>
                 <Blogs
@@ -95,7 +87,7 @@ const App = () => {
         )
     return (
         <div>
-            <Notifications notifications={notifications}/>
+            <Notifications />
             {body}
         </div>
     )

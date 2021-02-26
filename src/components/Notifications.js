@@ -1,13 +1,17 @@
 import React from 'react'
 import PropType from 'prop-types'
+import { useSelector } from 'react-redux'
 
-const Notifications = ({ notifications }) => (
-    <div>
-        {notifications.map(notification =>
-            <Notification key={notification} notification={notification}/>
-        )}
-    </div>
-)
+const Notifications = () => {
+    const notifications = useSelector(store => store.notifications)
+    return (
+        <div>
+            { notifications.map(notification =>
+                <Notification key={notification} notification={notification}/>
+            )}
+        </div>
+    )
+}
 
 const Notification = ({ notification }) => {
     const style = {
@@ -21,10 +25,6 @@ const Notification = ({ notification }) => {
     }
 
     return (<div className='notification' style={style}>{notification.message}</div>)
-}
-
-Notifications.propTypes = {
-    notifications: PropType.array.isRequired
 }
 
 Notification.propTypes = {

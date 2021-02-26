@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addNotification } from '../notificationReducer'
 import PropTypes from 'prop-types'
 
-const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
-
+const AddBlog = ({ blogService, addBlog, toggleable }) => {
+    const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -22,12 +24,11 @@ const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
             setUrl('')
             toggleable.current.toggleState()
             addBlog(newBlog)
-            addNotification({ message: `Added blog ${newBlog.title}` })
+
+            const message = `Added blog ${newBlog.title}`
+            dispatch(addNotification(message))
         } catch (exception) {
-            addNotification({
-                message: exception.response.data.error,
-                isError: true
-            })
+            dispatch(addNotification(exception.response.data.error, true))
         }
     }
 
@@ -65,7 +66,6 @@ const AddBlog = ({ blogService, addBlog, addNotification, toggleable }) => {
 AddBlog.propTypes = {
     blogService: PropTypes.object.isRequired,
     addBlog: PropTypes.func.isRequired,
-    addNotification: PropTypes.func.isRequired,
     toggleable: PropTypes.object.isRequired
 }
 

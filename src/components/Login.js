@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addNotification } from '../notificationReducer'
 import PropType from 'prop-types'
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'
 
-const Login = ({ setUser, addNotification }) => {
+const Login = ({ setUser }) => {
+    const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -14,13 +17,10 @@ const Login = ({ setUser, addNotification }) => {
             const user = await loginService.login(username, password)
             localStorage.setUser(user)
             setUser(user)
-            addNotification({ message: 'Successful login' })
+            dispatch(addNotification('Successful login'))
         } catch (exception) {
             console.error(exception)
-            addNotification({
-                message: exception.response.data.error,
-                isError: true
-            })
+            dispatch(addNotification(exception.response.data.error, true))
         }
     }
 
@@ -50,7 +50,6 @@ const Login = ({ setUser, addNotification }) => {
 
 Login.propTypes = {
     setUser: PropType.func.isRequired,
-    addNotification: PropType.func.isRequired
 }
 
 export default Login
