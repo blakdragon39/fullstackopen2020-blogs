@@ -1,50 +1,71 @@
 import blogService from '../services/blogs'
+import { addNotification } from './notificationReducer'
 
 export const getBlogs = () => {
     return async (dispatch) => {
-        const blogs = await blogService.getAll()
-        dispatch({
-            type: 'blogs.get',
-            data: {
-                blogs
-            }
-        })
+        try {
+            const blogs = await blogService.getAll()
+            dispatch({
+                type: 'blogs.get',
+                data: {
+                    blogs
+                }
+            })
+        } catch (e) {
+            console.error(e)
+            dispatch(addNotification(e.response.data.error, true))
+        }
     }
 }
 
 export const addBlog = (blog) => {
     return async (dispatch) => {
-        const newBlog = await blogService.addBlog(blog)
-        dispatch({
-            type: 'blogs.add',
-            data: {
-                blog: newBlog
-            }
-        })
+        try {
+            const newBlog = await blogService.addBlog(blog)
+            dispatch({
+                type: 'blogs.add',
+                data: {
+                    blog: newBlog
+                }
+            })
+        } catch (e) {
+            console.error(e)
+            dispatch(addNotification(e.response.data.error, true))
+        }
     }
 }
 
 export const likeBlog = (blog) => {
     return async (dispatch) => {
-        const newBlog = await blogService.addLike(blog)
-        dispatch({
-            type: 'blogs.update',
-            data: {
-                blog: newBlog
-            }
-        })
+        try {
+            const newBlog = await blogService.addLike(blog)
+            dispatch({
+                type: 'blogs.update',
+                data: {
+                    blog: newBlog
+                }
+            })
+        } catch (e) {
+            console.error(e)
+            dispatch(addNotification(e.response.data.error, true))
+        }
     }
 }
 
 export const deleteBlog = (blog) => {
     return async (dispatch) => {
-        await blogService.deleteBlog(blog)
-        dispatch({
-            type: 'blogs.delete',
-            data: {
-                blog: blog
-            }
-        })
+        try {
+            await blogService.deleteBlog(blog)
+            dispatch({
+                type: 'blogs.delete',
+                data: {
+                    blog: blog
+                }
+            })
+        } catch (e) {
+            console.error(e)
+            dispatch(addNotification(e.response.data.error, true))
+        }
     }
 }
 

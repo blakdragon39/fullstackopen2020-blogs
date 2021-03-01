@@ -1,5 +1,6 @@
 import loginService from '../services/login'
 import localStorage from '../services/localStorage'
+import { addNotification } from './notificationReducer'
 
 export const getUser = () => {
     const user = localStorage.getUser()
@@ -11,12 +12,18 @@ export const getUser = () => {
 
 export const login = (username, password) => {
     return async (dispatch) => {
-        const user = await loginService.login(username, password)
-        localStorage.setUser(user)
-        dispatch({
-            type: 'users.login',
-            data: { user }
-        })
+        try {
+            const user = await loginService.login(username, password)
+
+            localStorage.setUser(user)
+            dispatch({
+                type: 'users.login',
+                data: { user }
+            })
+        } catch (e) {
+            console.error(e)
+            dispatch(addNotification(e.response.data.error, true))
+        }
     }
 }
 
