@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../reducers/userReducer'
+import { logout } from '../reducers/loginReducer'
 
-const User = () => {
+const LoginUser = () => {
     const dispatch = useDispatch()
-    const user = useSelector(store => store.user)
+    const user = useSelector(store => store.loginUser)
 
     return (
         <div>
@@ -13,4 +13,4 @@ const User = () => {
     )
 }
 
-export default User
+export default LoginUser

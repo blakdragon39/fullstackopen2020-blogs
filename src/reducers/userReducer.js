@@ -1,47 +1,26 @@
-import loginService from '../services/login'
-import localStorage from '../services/localStorage'
+import userService from '../services/users'
 import { addNotification } from './notificationReducer'
 
-export const getUser = () => {
-    const user = localStorage.getUser()
-    return {
-        type: 'users.set',
-        data: { user }
-    }
-}
-
-export const login = (username, password) => {
+export const getUsers = () => {
     return async (dispatch) => {
         try {
-            const user = await loginService.login(username, password)
-
-            localStorage.setUser(user)
+            const users = await userService.getAll()
             dispatch({
-                type: 'users.login',
-                data: { user }
+                type: 'users.get',
+                data: { users }
             })
         } catch (e) {
-            console.error(e)
+            console.log(e)
             dispatch(addNotification(e.response.data.error, true))
         }
     }
 }
 
-export const logout = () => {
-    localStorage.setUser(null)
-
-    return {
-        type: 'users.logout'
-    }
-}
-
-const userReducer = (state = null, action) => {
+const userReducer = (state = [], action) => {
     switch (action.type) {
-        case 'users.set':
-        case 'users.login':
-            return action.data.user
-        case 'users.logout':
-            return null
+        case 'users.get':
+            console.log(action)
+            return action.data.users
         default:
             return state
     }
