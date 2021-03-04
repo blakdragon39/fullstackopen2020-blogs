@@ -8,9 +8,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './components/Login'
 import LoginUser from './components/LoginUser'
 import Notifications from './components/Notifications'
-import Users from './components/Users'
-import BlogsPage from './components/pages/BlogsPage'
-import UserPage from './components/pages/UserPage'
+import Users from './components/users/Users'
+import BlogPage from './components/blogs/BlogPage'
+import BlogsPage from './components/blogs/BlogsPage'
+import UserPage from './components/users/UserPage'
+import blogService from './services/blogs'
 
 const App = () => {
     const user = useSelector(store => store.loginUser)
@@ -20,12 +22,19 @@ const App = () => {
     useEffect(() => dispatch(getBlogs()), [])
     useEffect(() => dispatch(getUsers()), [])
 
+    if (user) {
+        blogService.setToken(user.token)
+    }
+
     const body = user === null ?
         (<Login />) :
         (
             <div>
                 <LoginUser />
                 <Switch>
+                    <Route path='/blogs/:id'>
+                        <BlogPage />
+                    </Route>
                     <Route path='/users/:id'>
                         <UserPage />
                     </Route>

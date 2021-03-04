@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addNotification } from '../reducers/notificationReducer'
-import { addBlog } from '../reducers/blogReducer'
+import { addNotification } from '../../reducers/notificationReducer'
+import { addBlog } from '../../reducers/blogReducer'
 import PropTypes from 'prop-types'
 
 const AddBlog = ({ toggleable }) => {

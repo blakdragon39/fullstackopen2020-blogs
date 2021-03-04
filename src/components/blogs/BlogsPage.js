@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 
 import Toggleable from '../Toggleable'
-import AddBlog from '../AddBlog'
-import Blogs from '../Blogs'
+import AddBlog from './AddBlog'
+import Blogs from './Blogs'
 
 const BlogsPage = () => {
     const toggleRef = useRef()
