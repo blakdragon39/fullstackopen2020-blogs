@@ -1,20 +1,18 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBlogs } from './reducers/blogReducer'
 import { getUsers } from './reducers/userReducer'
 import { getLoginUser } from './reducers/loginReducer'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Users from './components/Users'
-import Blogs from './components/Blogs'
-import AddBlog from './components/AddBlog'
 import Login from './components/Login'
 import LoginUser from './components/LoginUser'
 import Notifications from './components/Notifications'
-import Toggleable from './components/Toggleable'
+import BlogsPage from './components/pages/BlogsPage'
+import UsersPage from './components/pages/UsersPage'
 
 const App = () => {
     const user = useSelector(store => store.loginUser)
-    const toggleRef = useRef()
     const dispatch = useDispatch()
 
     useEffect(() => dispatch(getLoginUser()), [])
@@ -26,18 +24,22 @@ const App = () => {
         (
             <div>
                 <LoginUser />
-                <Toggleable toggleText='Add Blogs' ref={toggleRef}>
-                    <AddBlog
-                        toggleable={toggleRef}/>
-                </Toggleable>
-                <Users />
-                <Blogs />
+                <Switch>
+                    <Route path='/users'>
+                        <UsersPage />
+                    </Route>
+                    <Route path='/'>
+                        <BlogsPage />
+                    </Route>
+                </Switch>
             </div>
         )
     return (
         <div>
-            <Notifications />
-            {body}
+            <BrowserRouter>
+                <Notifications />
+                {body}
+            </BrowserRouter>
         </div>
     )
 }

@@ -19,7 +19,6 @@ export const getUsers = () => {
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case 'users.get':
-            console.log(action)
             return action.data.users
         default:
             return state
