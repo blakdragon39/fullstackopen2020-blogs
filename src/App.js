@@ -8,8 +8,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './components/Login'
 import LoginUser from './components/LoginUser'
 import Notifications from './components/Notifications'
+import Users from './components/Users'
 import BlogsPage from './components/pages/BlogsPage'
-import UsersPage from './components/pages/UsersPage'
+import UserPage from './components/pages/UserPage'
 
 const App = () => {
     const user = useSelector(store => store.loginUser)
@@ -25,8 +26,11 @@ const App = () => {
             <div>
                 <LoginUser />
                 <Switch>
+                    <Route path='/users/:id'>
+                        <UserPage />
+                    </Route>
                     <Route path='/users'>
-                        <UsersPage />
+                        <Users />
                     </Route>
                     <Route path='/'>
                         <BlogsPage />
