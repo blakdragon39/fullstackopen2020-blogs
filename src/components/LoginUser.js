@@ -6,11 +6,19 @@ const LoginUser = () => {
     const dispatch = useDispatch()
     const user = useSelector(store => store.loginUser)
 
-    return (
-        <div>
-            {user.displayName} logged in <button onClick={() => dispatch(logout())}>Logout</button>
-        </div>
-    )
+    const style = {
+        display: 'inline'
+    }
+
+    if (user) {
+        return (
+            <div style={style}>
+                {user.displayName} logged in <button onClick={() => dispatch(logout())}>Logout</button>
+            </div>
+        )
+    } else {
+        return null
+    }
 }
 
 export default LoginUser

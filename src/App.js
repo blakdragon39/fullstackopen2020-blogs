@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getBlogs } from './reducers/blogReducer'
 import { getUsers } from './reducers/userReducer'
 import { getLoginUser } from './reducers/loginReducer'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
+import NavBar from './components/NavBar'
 import Login from './components/Login'
-import LoginUser from './components/LoginUser'
+import Main from './components/Main'
 import Notifications from './components/Notifications'
-import Users from './components/users/Users'
-import BlogPage from './components/blogs/BlogPage'
-import BlogsPage from './components/blogs/BlogsPage'
-import UserPage from './components/users/UserPage'
 import blogService from './services/blogs'
 
 const App = () => {
@@ -26,30 +23,11 @@ const App = () => {
         blogService.setToken(user.token)
     }
 
-    const body = user === null ?
-        (<Login />) :
-        (
-            <div>
-                <LoginUser />
-                <Switch>
-                    <Route path='/blogs/:id'>
-                        <BlogPage />
-                    </Route>
-                    <Route path='/users/:id'>
-                        <UserPage />
-                    </Route>
-                    <Route path='/users'>
-                        <Users />
-                    </Route>
-                    <Route path='/'>
-                        <BlogsPage />
-                    </Route>
-                </Switch>
-            </div>
-        )
+    const body = user === null ? <Login /> : <Main />
     return (
         <div>
             <BrowserRouter>
+                <NavBar />
                 <Notifications />
                 {body}
             </BrowserRouter>
