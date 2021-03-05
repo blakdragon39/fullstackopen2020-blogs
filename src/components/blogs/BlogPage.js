@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { likeBlog } from '../../reducers/blogReducer'
-import blogService from '../../services/blogs'
+
+import Comments from './Comments'
 
 const BlogPage = () => {
-    const [comments, setComments] = useState([])
-
     const dispatch = useDispatch()
 
     const id = useParams().id
@@ -26,31 +25,17 @@ const BlogPage = () => {
     //     }
     // }
 
-    useEffect(() => {
-        if (blog) {
-            blogService.getComments(blog)
-                .then(newComments => setComments(newComments))
-        }
-    }, [blog])
-
     if (blog) {
         return (
             <div>
                 <div>
                     <h2>{blog.title}</h2>
-                    <div>{blog.url}</div>
+                    <div><a href={blog.url}>{blog.url}</a></div>
                     <div>Likes: {blog.likes} <button onClick={addLike}>Like</button></div>
                     <div>{blog.author}</div>
                     {/*<div style={deleteButtonStyle}> <button onClick={confirmDelete}>Delete</button></div>*/}
                 </div>
-                <div>
-                    <h3>Comments</h3>
-                    <ul>
-                        {
-                            comments.map(comment => <li key={comment.id}>{comment.text}</li>)
-                        }
-                    </ul>
-                </div>
+                <Comments blog={blog}/>
             </div>
         )
     } else {
