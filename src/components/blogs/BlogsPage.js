@@ -9,7 +9,7 @@ const BlogsPage = () => {
 
     return (
         <div>
-            <Toggleable toggleText='Add Blogs' ref={toggleRef}>
+            <Toggleable toggleText='Add Blog' ref={toggleRef}>
                 <AddBlog
                     toggleable={toggleRef}/>
             </Toggleable>

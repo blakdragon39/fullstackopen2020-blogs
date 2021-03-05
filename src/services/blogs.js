@@ -37,11 +37,18 @@ const addLike = async (blog) => {
     return response.data
 }
 
+const getComments = async (blog) => {
+    const response = await axios.get(`${baseUrl}/${blog.id}/comments`)
+    return response.data
+}
+
 const blogService = {
     setToken,
     getAll,
     addBlog,
     deleteBlog,
-    addLike
+    addLike,
+    getComments
 }
+
 export default blogService
